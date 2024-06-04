@@ -37,18 +37,13 @@ final class ToDoListViewModel: ObservableObject {
         }
     }
     
-//    /// essay for ondelete
-//    func deleteTodoItem(index: IndexSet) {
-//        toDoItems.remove(atOffsets: index)
-//    }
-    
-    
     /// Removes a to-do item from the list.
     func removeTodoItem(_ item: ToDoItem) {
         toDoItems.removeAll { $0.id == item.id }
     }
     
     /// Apply the filter to update the list.
+    @discardableResult
     func applyFilter(at index: Int) -> [ToDoItem] {
         // TODO: - Implement the logic for filtering
         switch index {

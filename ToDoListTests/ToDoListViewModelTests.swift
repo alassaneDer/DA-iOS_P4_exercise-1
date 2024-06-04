@@ -70,7 +70,7 @@ final class ToDoListViewModelTests: XCTestCase {
         viewModel.add(item: item2)
         
         // When
-        _ = viewModel.applyFilter(at: 0)
+        viewModel.applyFilter(at: 0)
         // Then
         XCTAssertEqual(viewModel.toDoItems.count, 2)
         
