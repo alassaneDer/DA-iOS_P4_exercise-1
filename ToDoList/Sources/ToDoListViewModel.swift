@@ -44,17 +44,28 @@ final class ToDoListViewModel: ObservableObject {
     
     /// Apply the filter to update the list.
     @discardableResult
-    func applyFilter(at index: Int) -> [ToDoItem] {
-        // TODO: - Implement the logic for filtering
-        switch index {
-        case 0:
-            return toDoItems
-        case 1:
-            return toDoItems.filter{ $0.isDone }
-        case 2:
-            return toDoItems.filter{ !$0.isDone }
+    func applyFilter(cases: FilterOptions) -> [ToDoItem] {
+        switch cases {
+        case FilterOptions.done:
+            toDoItems.filter({ $0.isDone == true })
+        case FilterOptions.notDone:
+            toDoItems.filter({ $0.isDone == false })
         default:
-            return toDoItems
+            toDoItems
         }
     }
 }
+
+
+//func applyFilter(at index: Int) -> [ToDoItem] {
+//    switch index {
+//    case 0:
+//        return toDoItems
+//    case 1:
+//        return toDoItems.filter{ $0.isDone }
+//    case 2:
+//        return toDoItems.filter{ !$0.isDone }
+//    default:
+//        return toDoItems
+//    }
+//}

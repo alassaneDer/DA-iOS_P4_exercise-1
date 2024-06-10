@@ -66,22 +66,25 @@ final class ToDoListViewModelTests: XCTestCase {
         // Given
         let item1 = ToDoItem(title: "Task 1", isDone: true)
         let item2 = ToDoItem(title: "Task 2", isDone: false)
+        let item3 = ToDoItem(title: "Task 3", isDone: false)
+
         viewModel.add(item: item1)
         viewModel.add(item: item2)
+        viewModel.add(item: item3)
+
+        // When
+        viewModel.applyFilter(cases: FilterOptions.all)
+        // Then
+        XCTAssertEqual(viewModel.applyFilter(cases: FilterOptions.all).count, 3)
         
         // When
-        viewModel.applyFilter(at: 0)
+        viewModel.applyFilter(cases: FilterOptions.done)
         // Then
-        XCTAssertEqual(viewModel.toDoItems.count, 2)
+        XCTAssertEqual(viewModel.applyFilter(cases: FilterOptions.done).count, 1)
         
         // When
-        viewModel.applyFilter(at: 1)
+        viewModel.applyFilter(cases: FilterOptions.notDone)
         // Then
-        XCTAssertEqual(viewModel.toDoItems.count, 1)
-        
-        // When
-        viewModel.applyFilter(at: 2)
-        // Then
-        XCTAssertEqual(viewModel.toDoItems.count, 1)
+        XCTAssertEqual(viewModel.applyFilter(cases: FilterOptions.notDone).count, 2)
     }
 }

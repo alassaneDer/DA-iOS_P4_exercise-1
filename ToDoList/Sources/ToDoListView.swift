@@ -7,23 +7,22 @@ struct ToDoListView: View {
     @State private var isAddingTodo = false
     
     // New state for filter index
-    @State private var filterIndex = 0
-    
+    @State private var filterIndex: FilterOptions = .all
+
     var body: some View {
         NavigationView {
             VStack {
                 // Filter selector
-                
-                Picker("Filter", selection: $filterIndex) {
-                    Text("All").tag(0)
-                    Text("Done").tag(1)
-                    Text("Not Done").tag(2)
+                Picker("Select a filter", selection: $filterIndex) {
+                    ForEach(FilterOptions.allCases) { option in
+                        Text(option.title).tag(option)
+                    }
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .padding()                
+                .padding()
                 // List of tasks
                 List {
-                    ForEach(viewModel.applyFilter(at: filterIndex)) { item in
+                    ForEach(viewModel.applyFilter(cases: filterIndex)) { item in
                         HStack {
                             Button(action: {
                                 viewModel.toggleTodoItemCompletion(item)
